@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>helvetica.im | A Digital Monument</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A digital monument exploring the history, influence, and ubiquity of the Helvetica typeface. An artifact preserved by unearth.im.">
+    <meta name="author" content="unearth.im">
+    <meta name="keywords" content="Helvetica, typography, design, modernism, Swiss design, font, history, Arial, unearth.im">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://helvetica.im">
+    <meta property="og:title" content="helvetica.im | A Digital Monument">
+    <meta property="og:description" content="A digital monument exploring the history, influence, and ubiquity of the Helvetica typeface.">
+    <meta property="og:image" content="https://placehold.co/1200x630/000000/FFFFFF?text=Helvetica">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://helvetica.im">
+    <meta property="twitter:title" content="helvetica.im | A Digital Monument">
+    <meta property="twitter:description" content="A digital monument exploring the history, influence, and ubiquity of the Helvetica typeface.">
+    <meta property="twitter:image" content="https://placehold.co/1200x630/000000/FFFFFF?text=Helvetica">
+
+    <style>
+        /* Base Styling - Consistent with unearth.im's 'Grounded & Human' but adapted for this monument */
+        body {
+            /* The default font is Arial, as per our 'typography geek humor' concept */
+            font-family: Arial, sans-serif;
+            background-color: #f8f7f4; /* Off-White */
+            color: #2E2E2E; /* Charcoal */
+            margin: 0;
+            padding: 4rem 2rem;
+            overflow-x: hidden;
+            text-align: center;
+            transition: font-family 0.3s ease-in-out; /* Smooth transition for the easter egg */
+        }
+
+        /* Class to switch to Helvetica */
+        body.use-helvetica {
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
+        }
+
+        header {
+            max-width: 65ch;
+            margin: 0 auto 4rem auto;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            color: #575757;
+        }
+
+        /* The main container for the cascading text effect */
+        .cascade-container {
+            width: 100%;
+            word-wrap: break-word;
+            line-height: 0.8; /* Tighten line height for the cascade effect */
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            margin-top: 6rem;
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        footer a {
+            color: #A95C3D; /* Burnt Sienna */
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>A Monument to a Typeface</h1>
+        <p>This is a story about ubiquity. It begins as a bold statement and gradually becomes the invisible texture of the world around us. A monument to the most famous typeface, preserved by <a href="https://unearth.im" target="_blank">unearth.im</a>.</p>
+    </header>
+
+    <div id="cascadeContainer" class="cascade-container">
+        <!-- The word "Helvetica" will be dynamically inserted here by JavaScript -->
+    </div>
+
+    <footer>
+        <p>&copy; 2025 unearth.im | A Digital Monument</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('cascadeContainer');
+            
+            const word = 'Helvetica ';
+            const repetitions = 150; // How many times the word repeats
+            const maxFontSize = 250; // Starting font size in pixels
+            const minFontSize = 12;  // Ending font size in pixels
+
+            // Function to create the cascading effect
+            function createCascade() {
+                container.innerHTML = ''; // Clear previous content
+                for (let i = 0; i < repetitions; i++) {
+                    const span = document.createElement('span');
+                    span.textContent = word;
+
+                    // Calculate the gradual decrease in font size and opacity
+                    const progress = i / (repetitions - 1);
+                    const fontSize = maxFontSize - (maxFontSize - minFontSize) * Math.pow(progress, 2); // Use Math.pow for a more dramatic curve
+                    const opacity = 1 - (0.8 * progress); // Fade out towards the end
+
+                    span.style.fontSize = `${fontSize}px`;
+                    span.style.opacity = opacity;
+                    span.style.color = `rgba(46, 46, 46, ${opacity})`; // Also fade color
+                    
+                    container.appendChild(span);
+                }
+            }
+            
+            // Konami Code Easter Egg
+            const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            let konamiIndex = 0;
+            document.addEventListener('keydown', (e) => {
+                if (e.key === konamiCode[konamiIndex]) {
+                    konamiIndex++;
+                    if (konamiIndex === konamiCode.length) {
+                        document.body.classList.toggle('use-helvetica');
+                        konamiIndex = 0; // Reset for another toggle
+                    }
+                } else {
+                    konamiIndex = 0;
+                }
+            });
+
+            // Initial creation of the cascade
+            createCascade();
+        });
+    </script>
+</body>
+</html>
+
