@@ -26,20 +26,13 @@
     <style>
         /* Base Styling - Consistent with unearth.im's 'Grounded & Human' but adapted for this monument */
         body {
-            /* The default font is Arial, as per our 'typography geek humor' 🤓🤓 */
-            font-family: Arial, sans-serif;
+            font-family: 'Helvetica Neue', Helvetica, sans-serif;
             background-color: #f8f7f4; /* Off-White */
             color: #2E2E2E; /* Charcoal */
             margin: 0;
             padding: 4rem 2rem;
             overflow-x: hidden;
             text-align: center;
-            transition: font-family 0.3s ease-in-out; /* Smooth transition for the easter egg */
-        }
-
-        /* Class to switch to Helvetica */
-        body.use-helvetica {
-            font-family: 'Helvetica Neue', Helvetica, sans-serif;
         }
 
         header {
@@ -136,25 +129,9 @@
                 }
             }
             
-            // Konami Code Easter Egg
-            const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-            let konamiIndex = 0;
-            document.addEventListener('keydown', (e) => {
-                if (e.key === konamiCode[konamiIndex]) {
-                    konamiIndex++;
-                    if (konamiIndex === konamiCode.length) {
-                        document.body.classList.toggle('use-helvetica');
-                        konamiIndex = 0; // Reset for another toggle
-                    }
-                } else {
-                    konamiIndex = 0;
-                }
-            });
-
             // Initial creation of the cascade
             createCascade();
         });
     </script>
 </body>
 </html>
-
