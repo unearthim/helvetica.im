@@ -23,6 +23,11 @@
     <meta property="twitter:description" content="A digital monument exploring the history, influence, and ubiquity of the Helvetica typeface.">
     <meta property="twitter:image" content="https://placehold.co/1200x630/000000/FFFFFF?text=Helvetica">
 
+    <!-- Google Fonts: Inter (as a fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
         /* Base Styling - Consistent with unearth.im's 'Grounded & Human' but adapted for this monument */
         body {
@@ -84,6 +89,12 @@
             text-decoration: underline;
         }
     </style>
+    <style>
+        /* Additional style for the font disclaimer */
+        .font-disclaimer {
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
 
@@ -97,11 +108,15 @@
     </div>
 
     <footer>
+        <p class="font-disclaimer">
+            Best viewed with Helvetica Neue or Helvetica. Defaults to Inter if unavailable.
+        </p>
         <p>&copy; 2025 <a href="https://unearth.im" target="_blank">unearth.im</a> | A Digital Monument</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Main Application Logic ---
             const container = document.getElementById('cascadeContainer');
             
             const word = 'Helvetica ';
@@ -129,6 +144,35 @@
                 }
             }
             
+            // --- Font Availability Check ---
+            // This function checks if a font is available by measuring the width of a test string.
+            // If the width with the desired font is different from a generic fallback, the font is considered available.
+            function isFontAvailable(font) {
+                const testString = "abcdefghijklmnopqrstuvwxyz0123456789";
+                const testElement = document.createElement("span");
+                testElement.style.position = "absolute";
+                testElement.style.visibility = "hidden";
+                testElement.style.fontSize = "72px";
+                testElement.innerHTML = testString;
+
+                // Test with a generic fallback font first
+                testElement.style.fontFamily = "monospace";
+                document.body.appendChild(testElement);
+                const fallbackWidth = testElement.offsetWidth;
+
+                // Test with the target font
+                testElement.style.fontFamily = `"${font}", monospace`;
+                const fontWidth = testElement.offsetWidth;
+
+                document.body.removeChild(testElement);
+                return fallbackWidth !== fontWidth;
+            }
+
+            // Check for Helvetica/Helvetica Neue and default to Inter if not found.
+            if (!isFontAvailable('Helvetica Neue') && !isFontAvailable('Helvetica')) {
+                document.body.style.fontFamily = "'Inter', sans-serif";
+            }
+
             // Initial creation of the cascade
             createCascade();
         });
